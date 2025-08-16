@@ -3,87 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>spsite</title>
-  <style>
-    :root {
-      --primary-color: #4CAF50;
-      --secondary-color: #f4f4f4;
-      --text-color: #333;
-      --font-family: 'Segoe UI', sans-serif;
-    }
-
-    body {
-      margin: 0;
-      font-family: var(--font-family);
-      background-color: var(--secondary-color);
-      color: var(--text-color);
-      transition: all 0.3s ease;
-    }
-
-    header {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 1rem;
-      text-align: center;
-    }
-
-    main {
-      padding: 2rem;
-      text-align: center;
-    }
-
-    footer {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-
-    .input-group {
-      margin: 1rem auto;
-      max-width: 300px;
-      text-align: left;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 0.3rem;
-      font-weight: bold;
-    }
-
-    input[type="text"] {
-      padding: 0.5rem;
-      width: 100%;
-      box-sizing: border-box;
-      margin-bottom: 1rem;
-    }
-
-    .button-group {
-      margin-top: 1rem;
-    }
-
-    button {
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      font-size: 1rem;
-      border-radius: 5px;
-      margin: 0.5rem;
-    }
-
-    button:hover {
-      background-color: #388E3C;
-    }
-  </style>
+  <title>Customize Theme</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Welcome to spsite</h1>
+    <h1>Customize Theme</h1>
   </header>
 
   <main>
@@ -104,13 +29,14 @@
     </div>
 
     <div class="button-group">
+      <button onclick="saveTheme()">Save Theme</button>
       <button onclick="changeTheme()">Change Theme</button>
       <button onclick="resetTheme()">Reset Theme</button>
     </div>
   </main>
 
   <footer>
-    <p>&copy; 2025 spsite. All rights reserved.</p>
+    <p>&copy; 2025 Customize Theme. All rights reserved.</p>
   </footer>
 
   <script>
@@ -157,6 +83,28 @@
       document.getElementById('secondaryColor').value = '';
       document.getElementById('textColor').value = '';
       document.getElementById('fontFamily').value = '';
+    }
+
+    function saveTheme() {
+      const primary = document.getElementById('primaryColor').value.trim() || '#4CAF50';
+      const secondary = document.getElementById('secondaryColor').value.trim() || '#f4f4f4';
+      const text = document.getElementById('textColor').value.trim() || '#333';
+      const font = document.getElementById('fontFamily').value.trim() || 'Segoe UI, sans-serif';
+
+      const cssContent = `
+:root {
+  --primary-color: ${primary};
+  --secondary-color: ${secondary};
+  --text-color: ${text};
+  --font-family: '${font}';
+}
+`;
+
+      const blob = new Blob([cssContent], { type: 'text/css' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'style.css';
+      link.click();
     }
   </script>
 </body>
